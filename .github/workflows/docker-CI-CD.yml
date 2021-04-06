@@ -1,0 +1,34 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+    
+env:
+  IMAGE_NAME: azurecontainerwebsite
+  IMAGE_TAG: ${{ github.run_id}}
+  
+
+jobs:
+
+  # This workflow contains a single job called "build"
+ build-image:
+  name: Build Container Image
+  runs-on: ubuntu-latest
+  
+  defaults:
+   run: 
+    working-directory: AzureContainerWebsite
+  
+  steps:
+      - uses: actions/checkout@v2
+      - name: Building the Docker image
+        run: docker build . --file Dockerfile --tag ny-image-name${date +%s)
+          echo test, and deploy your project.
